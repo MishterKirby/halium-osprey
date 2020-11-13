@@ -27,7 +27,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master
     
-    - name: Initialization environment
+    - name: Initialize environment
       run: |
         sudo apt-get update
         sudo apt-get install -y \
