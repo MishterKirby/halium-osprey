@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-16.04
 
     env:
-      DEVICE: santoni
+      DEVICE: osprey
       ANDROID_ROOT: /home/runner/work/halium/
 
     steps:
@@ -46,7 +46,7 @@ jobs:
         mkdir -p ~/bin
         wget 'https://storage.googleapis.com/git-repo-downloads/repo' -P ~/bin
         chmod +x ~/bin/repo
-        git config --global user.name "UBports Redmi 4X CI"
+        git config --global user.name "UBports Moto G3 CI"
         git config --global user.email "thisemaildoesnotexist@exist.com"
 
     - name: Downloading source code
@@ -60,12 +60,12 @@ jobs:
     - name: Clone device spec source
       run: |
         source halium.env
-        git clone https://gitlab.com/dreemurrs-embedded/halium/santoni/android_device_xiaomi_santoni.git $ANDROID_ROOT/device/xiaomi/santoni --depth=1
-        git clone https://gitlab.com/dreemurrs-embedded/halium/santoni/android_vendor_xiaomi_santoni.git $ANDROID_ROOT/vendor/xiaomi --depth=1
-        git clone https://gitlab.com/dreemurrs-embedded/halium/santoni/android_kernel_xiaomi_santoni.git $ANDROID_ROOT/kernel/xiaomi/msm8937 --depth=1
+        git clone https://github.com/MishterKirby/android_device_motorola_osprey.git $ANDROID_ROOT/device/motorola/osprey --depth=1
+        git clone https://github.com/MishterKirby/android_vendor_motorola_osprey.git $ANDROID_ROOT/vendor/motorola --depth=1
+        git clone https://github.com/MishterKirby/android_kernel_motorola_osprey.git $ANDROID_ROOT/kernel/motorola/msm8937 --depth=1
         git clone https://android.googlesource.com/platform/external/curl.git -b android-7.1.2_r37 $ANDROID_ROOT/external/libcurl --depth=1
         rm -rf $ANDROID_ROOT/halium/hybris-boot
-        git clone https://github.com/sailfish-santoni/hybris-boot.git -b santoni $ANDROID_ROOT/halium/hybris-boot --depth=1
+        git clone https://github.com/MishterKirby/hybris-boot -b osprey $ANDROID_ROOT/halium/hybris-boot --depth=1
 
     - name: Build HAL
       run: |
@@ -77,10 +77,10 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: hybris-boot image
-        path: /home/runner/work/halium/out/target/product/santoni/hybris-boot.img
+        path: /home/runner/work/halium/out/target/product/osprey/hybris-boot.img
 
     - name : Upload system image
       uses: actions/upload-artifact@master
       with:
         name: System image
-        path: /home/runner/work/halium/out/target/product/santoni/system.img
+        path: /home/runner/work/halium/out/target/product/osprey/system.img
